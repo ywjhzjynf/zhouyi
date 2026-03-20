@@ -89,7 +89,7 @@ jobs:
           sed -i 's|android.sdk =.*|android.sdk = /home/runner/android|' buildozer.spec
           sed -i 's|android.ndk_path =.*|android.ndk_path = /home/runner/android/ndk/25.2.9519653|' buildozer.spec
       
-      - name: Build APK with Buildozer
+      - name: Build APK v1.0.0 with Buildozer
         run: |
           export ANDROID_HOME=$HOME/android
           export ANDROID_SDK_ROOT=$HOME/android
