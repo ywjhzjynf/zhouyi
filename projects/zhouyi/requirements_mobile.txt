@@ -1,0 +1,16 @@
+# 周易占卜系统 - 移动端依赖
+# Zhouyi Divination System - Mobile Requirements
+
+# Kivy - 跨平台 GUI 框架
+kivy>=2.2.0
+
+# Kivy 依赖（Windows 开发环境）
+kivy_deps.sdl2>=0.8.0
+kivy_deps.glew>=0.3.1
+kivy_deps.gstreamer>=0.3.4
+
+# 打包工具
+buildozer>=1.5.0
+
+# 可选：测试工具
+pytest>=7.0.0

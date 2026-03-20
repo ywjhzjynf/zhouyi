@@ -1,0 +1,118 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            python3-pip \
+            python3-venv \
+            autoconf \
+            automake \
+            build-essential \
+            libssl-dev \
+            libffi-dev \
+            libgstreamer1.0-dev \
+            libgstreamer-plugins-base1.0-dev \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-ttf-dev \
+            libsdl2-gfx-dev \
+            libmixer-dev \
+            libv4l-dev \
+            ffmpeg \
+            libportmidi-dev \
+            libswscale-dev \
+            libavformat-dev \
+            libavcodec-dev \
+            zlib1g-dev \
+            openjdk-11-jdk \
+            git \
+            zip \
+            unzip
+      
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install kivy buildozer
+      
+      - name: Setup Android environment
+        run: |
+          export ANDROID_HOME=$HOME/android
+          export ANDROID_SDK_ROOT=$HOME/android
+          mkdir -p $ANDROID_HOME
+          
+          # Download Android SDK command-line tools
+          cd $ANDROID_HOME
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+          unzip -q commandlinetools-linux-9477386_latest.zip
+          mkdir -p cmdline-tools/latest
+          mv cmdline-tools/* cmdline-tools/latest/ 2>/dev/null || true
+          
+          # Set PATH
+          export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+          
+          # Accept licenses and install SDK components
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+          sdkmanager "platform-tools" "platforms;android-33" "ndk;25.2.9519653"
+      
+      - name: Update buildozer.spec
+        run: |
+          # Ensure buildozer.spec has correct Android SDK paths
+          sed -i 's|android.sdk =.*|android.sdk = /home/runner/android|' buildozer.spec
+          sed -i 's|android.ndk_path =.*|android.ndk_path = /home/runner/android/ndk/25.2.9519653|' buildozer.spec
+      
+      - name: Build APK with Buildozer
+        run: |
+          export ANDROID_HOME=$HOME/android
+          export ANDROID_SDK_ROOT=$HOME/android
+          export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+          
+          # Clean previous builds
+          buildozer clean || true
+          
+          # Build debug APK
+          buildozer -v android debug
+      
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zhouyi-apk-debug
+          path: bin/*.apk
+          retention-days: 30
+      
+      - name: Create Release (on tag)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: bin/*.apk
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

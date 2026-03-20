@@ -1,0 +1,6 @@
+Hexagram count: 64
+First hexagram: ID=1, Name=乾
+Last hexagram: ID=64, Name=未济
+Qian lines count: 6
+Qian line 1: 潜龙勿用
+ID continuity check: PASS

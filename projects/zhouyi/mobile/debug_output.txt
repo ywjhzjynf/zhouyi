@@ -1,0 +1,22 @@
+﻿TRIGRAM_BINARY: {'乾': '111', '兑': '110', '离': '101', '震': '100', '巽': '011', '坎': '010', '艮': '001', '坤': '000'}
+
+lines: [9, 9, 9, 9, 9, 9]
+  binary: 111111 (upper=111, lower=111)
+  trigrams: upper=乾, lower=乾
+  name: 乾为天, num: 1
+
+lines: [6, 6, 6, 6, 6, 6]
+  binary: 000000 (upper=000, lower=000)
+  trigrams: upper=坤, lower=坤
+  name: 坤为地, num: 2
+
+lines: [7, 7, 7, 6, 6, 6]
+  binary: 111000 (upper=111, lower=000)
+  trigrams: upper=乾, lower=坤
+  name: 天地否, num: 12
+
+lines: [8, 8, 8, 9, 9, 9]
+  binary: 000111 (upper=000, lower=111)
+  trigrams: upper=坤, lower=乾
+  name: 地天泰, num: 11
+

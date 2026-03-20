@@ -1,0 +1,12 @@
+﻿python :   File "<string>", line 1
+所在位置 行:1 字符: 56
++ ... cts\zhouyi; python -c "import sys; sys.path.insert(0, '.'); from mobi ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  File "<string>", line 1:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    import sys; sys.path.insert(0, '.'); from mobile import divine; r = divine('coin'); print('导入成功！'); print(f'卦名：{r["
+ hexagram\]}');
+                                                                                                                       
+             ^
+SyntaxError: f-string expression part cannot include a backslash

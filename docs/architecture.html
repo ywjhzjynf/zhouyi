@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏛️ OpenClaw 系统架构图</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #1e88e5;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .box {
+            border: 3px solid;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+        }
+        .feishu {
+            background: linear-gradient(135deg, #00d2aa 0%, #00a885 100%);
+            border-color: #008f6f;
+            color: #fff;
+        }
+        .main-agent {
+            background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            border-color: #0a3a8a;
+            color: #fff;
+            padding: 25px;
+        }
+        .sheng {
+            background: linear-gradient(135deg, #8e24aa 0%, #4a148c 100%);
+            border-color: #38006b;
+            color: #fff;
+        }
+        .bu {
+            background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%);
+            border-color: #8c0000;
+            color: #fff;
+        }
+        .jianzheng {
+            background: linear-gradient(135deg, #00acc1 0%, #006064 100%);
+            border-color: #00363a;
+            color: #fff;
+        }
+        .monitor {
+            background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%);
+            border-color: #0d3d12;
+            color: #fff;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .arrow {
+            text-align: center;
+            font-size: 24px;
+            color: #666;
+            margin: 5px 0;
+        }
+        .legend {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        .legend span {
+            margin-right: 20px;
+            font-size: 14px;
+        }
+        .emoji { font-size: 20px; }
+        .status-ok { color: #43a047; font-weight: bold; }
+        .status-warn { color: #ffb74d; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏛️ OpenClaw 系统架构图</h1>
+        <p class="subtitle">2026-03-20 v1.0 | 内阁首辅 - 青词 呈</p>
+
+        <!-- 飞书平台 -->
+        <div class="box feishu">
+            <h2><span class="emoji">📱</span> 飞书平台 (Feishu)</h2>
+            <div class="grid-2">
+                <div>
+                    <h3><span class="emoji">🤖</span> 内阁首辅机器人</h3>
+                    <p>cli_a936b7...</p>
+                    <p class="status-ok">✅ 已连接</p>
+                </div>
+                <div>
+                    <h3><span class="emoji">🤖</span> 监正御史机器人</h3>
+                    <p>cli_a9311b...</p>
+                    <p class="status-warn">⚠️ 配置就绪</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="arrow">⬇️</div>
+
+        <!-- 主 Agent -->
+        <div class="box main-agent">
+            <h2><span class="emoji">🏛️</span> 主 Agent 会话 (main)</h2>
+            <h3>内阁首辅 - 青词</h3>
+            <p>总揽全局 / 协调三省六部</p>
+            <p>模型：qwen3.5-plus (100 万上下文)</p>
+            <p class="status-ok">✅ 唯一飞书消息出口</p>
+        </div>
+
+        <div class="arrow">⬇️</div>
+
+        <!-- 三省六部监正 -->
+        <div class="grid-3">
+            <div class="box sheng">
+                <h2><span class="emoji">📜</span> 三省</h2>
+                <p>├─ 中书省 (zhongshu) - 策略规划</p>
+                <p>├─ 门下省 (menxia) - 审核把关</p>
+                <p>└─ 尚书省 (shangshu) - 执行协调</p>
+            </div>
+            <div class="box bu">
+                <h2><span class="emoji">⚙️</span> 六部</h2>
+                <p>├─ 工部 (gongbu) - 开发</p>
+                <p>├─ 兵部 (bingbu) - 算法</p>
+                <p>├─ 户部 (hubu) - 数据</p>
+                <p>└─ 礼部 (liwu) - 日常事务</p>
+            </div>
+            <div class="box jianzheng">
+                <h2><span class="emoji">🛡️</span> 监正</h2>
+                <p>jianzheng</p>
+                <p>系统运维</p>
+                <p class="status-warn">⚠️ 飞书消息由臣代发</p>
+            </div>
+        </div>
+
+        <!-- 网关监控 -->
+        <div class="box monitor">
+            <h2><span class="emoji">📈</span> 网关监控系统</h2>
+            <div class="grid-3">
+                <div>
+                    <h3><span class="emoji">🔍</span> 监控脚本</h3>
+                    <p>30 秒检测</p>
+                    <p>自动重启</p>
+                </div>
+                <div>
+                    <h3><span class="emoji">📝</span> 日志记录</h3>
+                    <p>gateway-monitor.log</p>
+                    <p>双日志系统</p>
+                </div>
+                <div>
+                    <h3><span class="emoji">⚙️</span> 开机自启</h3>
+                    <p>快捷方式</p>
+                    <p class="status-ok">✅ 已配置</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 图例 -->
+        <div class="legend">
+            <h3>📋 图例：</h3>
+            <span class="status-ok">✅ 正常</span>
+            <span class="status-warn">⚠️ 注意</span>
+            <span>❌ 异常</span>
+        </div>
+    </div>
+</body>
+</html>
